@@ -1,0 +1,5 @@
+rootProject.name = 'dependency-inject'
+
+
+include 'custom-dependency-inject'
+include 'demo-application'
