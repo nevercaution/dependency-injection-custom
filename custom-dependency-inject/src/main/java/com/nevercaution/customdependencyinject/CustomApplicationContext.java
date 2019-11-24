@@ -30,6 +30,18 @@ public class CustomApplicationContext {
         finishBeanFactoryInitialization(beanFactory);
     }
 
+    private void invokeBeanFactoryPostProcessors(String basePackage) {
+        // parse @CustomComponentScan
+        List<String> packageNameList = parse(basePackage);
+
+        System.out.println("packageNameList = " + packageNameList);
+
+        // parse @CustomComponent
+        List<String> resourceList = findResource(packageNameList);
+
+        beanFactory.setResources(resourceList);
+    }
+
     private List<String> parse(String basePackage) {
         try (ScanResult scanResult = new ClassGraph()
                 .enableAnnotationInfo()
@@ -50,18 +62,6 @@ public class CustomApplicationContext {
                     .flatMap(List::stream)
                     .collect(Collectors.toList());
         }
-    }
-
-    private void invokeBeanFactoryPostProcessors(String basePackage) {
-        // parse @CustomComponentScan
-        List<String> packageNameList = parse(basePackage);
-
-        System.out.println("packageNameList = " + packageNameList);
-
-        // parse @CustomComponent
-        List<String> resourceList = findResource(packageNameList);
-
-        beanFactory.setResources(resourceList);
     }
 
     private List<String> findResource(List<String> packageList) {
