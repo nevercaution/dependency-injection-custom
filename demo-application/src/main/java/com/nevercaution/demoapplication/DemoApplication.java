@@ -17,8 +17,6 @@ public class DemoApplication {
 
         String s = userService.pullOut();
         System.out.println("s = " + s);
-
-
     }
 
 }

@@ -23,6 +23,7 @@ public class CustomApplicationContext {
 
     private void refresh(String basePackage) {
 
+        System.out.println("CustomApplicationContext.refresh >> basePackage : " + basePackage);
         // Invoke factory processors registered as beans in the context.
         invokeBeanFactoryPostProcessors(basePackage);
 
@@ -65,6 +66,10 @@ public class CustomApplicationContext {
     }
 
     private List<String> findResource(List<String> packageList) {
+        if (packageList.isEmpty()) {
+            throw new IllegalAccessError("packageList is empty!");
+        }
+
         try(ScanResult scanResult = new ClassGraph()
                 .enableAnnotationInfo()
                 .enableClassInfo()
